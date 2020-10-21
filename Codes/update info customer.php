@@ -1,0 +1,336 @@
+<?php
+if (isset($_POST['update'])) {
+include_once "connection.php";
+
+session_start();
+if ( isset( $_SESSION['USER_VALUE'] ) ) {
+    ///echo("USER_ID present\n");
+	$USER_ID =$_SESSION['USER_VALUE'];
+	//echo $USER_ID;
+}
+else {
+	echo "ERROR:";
+}
+
+$first_name =$_POST['fstname'];
+$last_name =$_POST['lstname'];
+$user_name =$_POST['usrnm'];
+$email =$_POST['email'];
+$retype_pass=$_POST['retypepassword'];
+$password =$_POST['psw'];
+$gender = $_POST['gen'];
+$contact = $_POST['mobileNum'];
+$location = $_POST['locaton'];
+
+
+
+
+
+$tor= "UPDATE  AUTH_USER  SET FIRSTNAME='".$first_name."', LASTNAME='".$last_name."', EMAIL='".$email."', USERNAME='".$user_name."', PASSWORD='".$password."' , RETYPEPASSWORD='".$retype_pass."' ,GENDER='".$gender."' , CONTACT='".$contact."' , LOCATION='".$location."' WHERE ID ='".$USER_ID."'";
+
+$result=mysqli_query($conn,$tor);
+
+if ($result) {
+echo "New record created successfully";
+} else {
+echo $result ;
+}
+
+mysqli_close($conn);
+
+
+}
+?>
+
+
+<html>
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* Add a background color when the inputs get focus */
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+button:hover {
+  opacity:1;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  padding: 14px 20px;
+  background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn, .signupbtn {
+  float: left;
+  width: 50%;
+}
+
+/* Add padding to container elements */
+.container {
+  padding: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: #474e5d;
+  padding-top: 50px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* Style the horizontal ruler */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+ 
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #f1f1f1;
+}
+
+.close:hover,
+.close:focus {
+  color: #f44336;
+  cursor: pointer;
+}
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+  .cancelbtn, .signupbtn {
+     width: 100%;
+  }
+}
+</style>
+	
+	<body bgcolor="CADC8B">
+	<form class="modal-content" action="update info customer.php" method="post" onsubmit="return validateForm()">
+    <div class="container">
+      <h1>UPDATE MY INFO CUSTOMER</h1>
+      <p>Please fill in this form to create an account.</p>
+      <hr>
+
+	<label for="firstname"><b>First Name</b></label>
+	<input class="input-field" type="text" placeholder="fast_name" name="fstname">
+
+  	<label for="lastname"><b>Last Name</b></label>
+	<input class="input-field" type="text" placeholder="last_name" name="lstname">
+
+	<label for="username"><b>Username</b></label>
+	<input class="input-field" type="text" placeholder="username" name="usrnm" id= "username">
+	
+ 	<label for="email"><b>Email</b></label>
+     <input type="text" placeholder="Enter Email" name="email" id="email">
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" id="password" name="psw" >
+		
+    <label for="retypepassword"><b>Retype Password</b></label>
+	<input class="input-field" type="password" placeholder="Retype Password" id="retypepassword" name="retypepassword" >
+	
+	<label for="gender"><b>Gender</b></label>
+	<input class="input-field" type="text" placeholder="Gender" id="gender" name="gen" >
+	
+	<label for="gender"><b>Location</b></label>
+	<input class="input-field" type="text" placeholder="Location" id="Loctn" name="locaton" >
+	
+	
+	<label for="mobile number"><b>Mobile Number</b></label>
+	<input class="input-field" type="number" placeholder="Mobile number" id="MobileNumber" name="mobileNum" maxlength="13">
+	
+	
+    <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+    </label>
+
+    <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+	<center>      <div class="clearfix">
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+         <button type="submit" class="signupbtn" name="update">Sign Up</button>
+     </div>
+    </div>
+  </form>
+</div>
+
+<script>
+
+   	function validateForm() {
+    var username = document.getElementById("username").value;
+    var Email = document.getElementById("email").value;
+	var password = document.getElementById("password").value;
+	var RetypePassword = document.getElementById("retypepassword").value;
+	var MobileNumber = document.getElementById("MobileNumber").value;
+	
+	
+    if (username.trim() == "") {
+        alert("Username must be filled out");
+        return false;
+    }
+	
+	
+    
+    if (password.trim() == "") {
+        alert("Password must be filled out");
+        return false;
+    }
+	if (RetypePassword.trim() == "") {
+        alert("RetypePassword must be filled out");
+        return false;
+    }
+	
+	if (MobileNumber.trim() == "") {
+        alert("Mobile number must be filled out with digit");
+        return false;
+    }
+	 
+	if(password!=RetypePassword ){
+	alert('RetypePassword..not matched .')
+            return false;
+        }
+		
+		
+    else {
+       
+           return true;
+         }
+    
+   
+}
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+var x, i, j, selElmnt, a, b, c;
+/*look for any elements with the class "custom-select":*/
+x = document.getElementsByClassName("custom-select");
+for (i = 0; i < x.length; i++) {
+  selElmnt = x[i].getElementsByTagName("select")[0];
+  /*for each element, create a new DIV that will act as the selected item:*/
+  a = document.createElement("DIV");
+  a.setAttribute("class", "select-selected");
+  a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+  x[i].appendChild(a);
+  /*for each element, create a new DIV that will contain the option list:*/
+  b = document.createElement("DIV");
+  b.setAttribute("class", "select-items select-hide");
+  for (j = 1; j < selElmnt.length; j++) {
+    /*for each option in the original select element,
+    create a new DIV that will act as an option item:*/
+    c = document.createElement("DIV");
+    c.innerHTML = selElmnt.options[j].innerHTML;
+    c.addEventListener("click", function(e) {
+        /*when an item is clicked, update the original select box,
+        and the selected item:*/
+        var y, i, k, s, h;
+        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+        h = this.parentNode.previousSibling;
+        for (i = 0; i < s.length; i++) {
+          if (s.options[i].innerHTML == this.innerHTML) {
+            s.selectedIndex = i;
+            h.innerHTML = this.innerHTML;
+            y = this.parentNode.getElementsByClassName("same-as-selected");
+            for (k = 0; k < y.length; k++) {
+              y[k].removeAttribute("class");
+            }
+            this.setAttribute("class", "same-as-selected");
+            break;
+          }
+        }
+        h.click();
+    });
+    b.appendChild(c);
+  }
+  x[i].appendChild(b);
+  a.addEventListener("click", function(e) {
+      /*when the select box is clicked, close any other select boxes,
+      and open/close the current select box:*/
+      e.stopPropagation();
+      closeAllSelect(this);
+      this.nextSibling.classList.toggle("select-hide");
+      this.classList.toggle("select-arrow-active");
+    });
+}
+function closeAllSelect(elmnt) {
+  /*a function that will close all select boxes in the document,
+  except the current select box:*/
+  var x, y, i, arrNo = [];
+  x = document.getElementsByClassName("select-items");
+  y = document.getElementsByClassName("select-selected");
+  for (i = 0; i < y.length; i++) {
+    if (elmnt == y[i]) {
+      arrNo.push(i)
+    } else {
+      y[i].classList.remove("select-arrow-active");
+    }
+  }
+  for (i = 0; i < x.length; i++) {
+    if (arrNo.indexOf(i)) {
+      x[i].classList.add("select-hide");
+    }
+  }
+}
+/*if the user clicks anywhere outside the select box,
+then close all select boxes:*/
+document.addEventListener("click", closeAllSelect);
+
+</script>
+
+</body>
+</html>
